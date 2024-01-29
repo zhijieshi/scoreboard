@@ -9,6 +9,7 @@ div.outer {
   align-items: center;
   text-align: center;
   z-index: 1;
+  margin: 0;
 }
 
 div.left {
@@ -37,28 +38,35 @@ span.score {
 }
 
 div.p {
+    margin:10;
+}
+
+body {
+    margin:0;
 }
 
 button.config{
-    width: 70px;
+    height: 40px;
+    width: 100px;
     margin-left: 30px;
-    margin-right: 45px;
+    margin-right: 30px;
 }
 
 #div_config { 
     /* height: 40px; */
     position: fixed; 
+    right: 0;
     bottom:0%;
     width:100%; 
     opacity: 1;
-    text-align: center;
+    text-align: right;
     z-index: 2;
 }
 
 .disable-dbl-tap-zoom {
   touch-action: manipulation;
 }
-  
+
 </style>
 </head>
 
@@ -144,7 +152,9 @@ function set_fontsize() {
 }
 
 window.onresize = set_fontsize;
-window.onload = set_fontsize;
+window.onload = function() {
+    set_fontsize();
+} 
 
 </script>
  
