@@ -55,11 +55,15 @@ button.config{
     z-index: 2;
 }
 
+.disable-dbl-tap-zoom {
+  touch-action: manipulation;
+}
+  
 </style>
 </head>
 
 <body>
-  <div class="outer">
+  <div class="outer disable-dbl-tap-zoom">
   <div id="div_left" class="left" onclick="point(0)"> 
   <span id="left_score" class="score"> 0 </span>
   </div>
