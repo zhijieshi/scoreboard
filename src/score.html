@@ -48,14 +48,14 @@ body {
     margin:0;
 }
 
-button.config{
+button.config {
     height: 40px;
     width: 100px;
     margin-left: 30px;
     margin-right: 30px;
 }
 
-#div_config { 
+#div_config {
     /* height: 40px; */
     position: fixed; 
     right: 0;
@@ -76,21 +76,21 @@ button.config{
 <body>
   <div class="outer disable-dbl-tap-zoom">
   <div id="div_left" class="left" onclick="point(0)"> 
-  <span id="left_score" class="score"> 0 </span>
+  <span id="left_score" class="score">0</span>
   </div>
   <div id="div_right" class="right" onclick="point(1)"> 
-  <span id="right_score" class="score"> 0 </span>
+  <span id="right_score" class="score">0</span>
   </div>
   </div>
   <div id="div_config">
-      <button type="button" onclick="reset_scores();" class="config"> reset </button>
-      <button type="button" onclick="undo_scores();" class="config"> undo </button>
+      <button type="button" onclick="reset_scores();" class="config">Reset</button>
+      <button type="button" onclick="undo_scores();" class="config">Undo</button>
   </div>
 </body>
 
 <script type="text/javascript">
 
-class Scores {
+    class Scores {
   constructor(left, right) {
     this.left = left;
     this.right = right;
@@ -103,10 +103,10 @@ var scores_history = [];
 function update_scores(scores) {
     document.getElementById("left_score").innerHTML = scores.left;
     document.getElementById("right_score").innerHTML = scores.right;
+    save_scores_to_local_storage(scores);
 }
 
 function point(side) {
-
     scores_history.push(side);
 
     if (side == 0) {
@@ -136,8 +136,18 @@ function undo_scores() {
     update_scores(current_scores);
 }
 
-function set_fontsize() {
+function save_scores_to_local_storage(scores) {
+    localStorage.setItem('left_score', scores.left);
+    localStorage.setItem('right_score', scores.right);
+}
 
+function load_scores_from_local_storage() {
+    const left = parseInt(localStorage.getItem('left_score')) || 0;
+    const right = parseInt(localStorage.getItem('right_score')) || 0;
+    return new Scores(left, right);
+}
+
+function set_fontsize() {
     let ele = document.getElementById("div_left");
     let w = ele.clientWidth;
     let h = ele.clientHeight;
@@ -157,9 +167,9 @@ function set_fontsize() {
 window.onresize = set_fontsize;
 window.onload = function() {
     set_fontsize();
-} 
+    current_scores = load_scores_from_local_storage();
+    update_scores(current_scores);
+}
+</script>
 
-</script>
- 
-</script>
 </html>
